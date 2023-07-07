@@ -1,11 +1,13 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { Item } from './item.model';
+import { Item } from '../entities/item.entity'; // modelからDBのEntityへ変更
 import { ItemStatus } from './item-status.enum';
 import { CreateItemDto } from './dto/create-item.dto';
-import { v4 as uuid } from 'uuid';
+import { ItemRepository } from './item.repository';
 
 @Injectable()
 export class ItemsService {
+  constructor(private readonly itemRepository: ItemRepository) {}
+
   private items: Item[] = [];
 
   findAll(): Item[] {
@@ -20,16 +22,9 @@ export class ItemsService {
     return found;
   }
 
-  create(createItemDto: CreateItemDto): Item {
-    // ES6のspread構文を使ってDTOを展開することができる
-    const item: Item = {
-      id: uuid(),
-      ...createItemDto,
-      status: ItemStatus.ON_SALE,
-    }
-    this.items.push(item);
-    return item;
-  }
+  async create(createItemDto: CreateItemDto): Promise<Item> {
+    return await this.itemRepository.createItem(createItemDto);
+  } 
 
   updateStatus(id: string): Item {
     const item = this.findById(id);
