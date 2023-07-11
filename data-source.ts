@@ -1,6 +1,6 @@
 import { DataSource } from "typeorm";
 
-const source = new DataSource({
+export default new DataSource({
   type: 'postgres',
   host: 'localhost',
   port: 5432,
@@ -14,6 +14,4 @@ const source = new DataSource({
   migrations: [
       'src/migrations/*.ts' // マイグレーションスクリプトの格納場所
   ],
-})
-
-export default source
+});
