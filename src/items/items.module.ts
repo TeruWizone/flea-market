@@ -8,6 +8,6 @@ import { ItemRepository } from './item.repository';
 @Module({
   imports: [TypeOrmModule.forFeature([Item])], // Repositoryの登録は一つの機能が対象なのでFeatureを使う
   controllers: [ItemsController],
-  providers: [ItemRepository,ItemsService],
+  providers: [ItemRepository, ItemsService],
 })
 export class ItemsModule {}
