@@ -6,11 +6,13 @@ import { User } from 'src/entities/user.entity';
 import { UserRepository } from './user.repository';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
+import { JwtStrategy } from './jwt.strategy';
+import { JwtAuthGuard } from './guards/jwt-auth.guard';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([User]),
-    PassportModule.register({ defaultStrategy: 'jwt' }), // 認証モジュール登録（デフォルト:jwt）
+    PassportModule.register({ defaultStrategy: 'jwt' }), // 認証モジュール登録（デフォルトStrategy:jwt）
     JwtModule.register({
       secret: 'secretKey123', // 秘密鍵
       signOptions: {
@@ -19,7 +21,8 @@ import { JwtModule } from '@nestjs/jwt';
     })
   ],
   controllers: [AuthController],
-  providers: [UserRepository, AuthService],
+  providers: [UserRepository, AuthService, JwtStrategy, JwtAuthGuard],
+  exports: [JwtStrategy, JwtAuthGuard],  //他の場所（itemsモジュール側）で利用するため
 })
 export class AuthModule {}
 
