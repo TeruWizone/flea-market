@@ -1,3 +1,4 @@
+import { Exclude } from "class-transformer";
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Item } from "./item.entity";
 
@@ -10,6 +11,7 @@ export class User {
   username: string;
 
   @Column()
+  @Exclude({ toPlainOnly: true }) // responseから除外する設定
   password: string;
 
   @Column()
