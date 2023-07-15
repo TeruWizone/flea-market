@@ -3,6 +3,7 @@ import { ItemsModule } from './items/items.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource }from 'typeorm';
 import { AuthModule } from './auth/auth.module';
+import { LogtblsModule } from './logtbls/logtbls.module';
 
 @Module({
   imports: [
@@ -16,7 +17,8 @@ import { AuthModule } from './auth/auth.module';
       database: 'postgres',
       autoLoadEntities: true
     }),
-    AuthModule
+    AuthModule,
+    LogtblsModule,
   ],
   controllers: [],
   providers: [],
