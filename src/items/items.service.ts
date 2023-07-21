@@ -2,14 +2,20 @@ import { BadRequestException, Injectable, NotFoundException } from '@nestjs/comm
 import { Item } from '../entities/item.entity'; // modelからDBのEntityへ変更
 import { ItemStatus } from './item-status.enum';
 import { CreateItemDto } from './dto/create-item.dto';
-import { ItemRepository } from './item.repository';
+import { InjectRepository } from '@nestjs/typeorm';
+//import { ItemRepository } from './item.repository';
+import { Repository } from 'typeorm';
 import { User } from 'src/entities/user.entity';
 
 @Injectable()
 export class ItemsService {
-  constructor(private readonly itemRepository: ItemRepository) {}
+  constructor(
+    //private readonly itemRepository: ItemRepository
+    // Repositoryファイルで分けない書き方
+    @InjectRepository(Item) private readonly itemRepository: Repository<Item>,
+  ) {}
 
-  private items: Item[] = [];
+  //private items: Item[] = [];
 
   async findAll(): Promise<Item[]> {
     return await this.itemRepository.find(); // 全件取得
@@ -23,8 +29,24 @@ export class ItemsService {
     return found;
   }
 
+  //async create(createItemDto: CreateItemDto, user: User): Promise<Item> {
+  //  return await this.itemRepository.createItem(createItemDto, user); 
+  //}
+  // Repositoryファイルで分けない書き方
   async create(createItemDto: CreateItemDto, user: User): Promise<Item> {
-    return await this.itemRepository.createItem(createItemDto, user); 
+    const { name, price, description } = createItemDto;
+    const item = this.itemRepository.create({
+      name,
+      price,
+      description,
+      status: ItemStatus.ON_SALE,
+      createdAt: new Date().toISOString(),
+      updateAt: new Date().toISOString(),
+      user,
+    });
+
+    await this.itemRepository.save(item);
+    return item;
   } 
 
   async updateStatus(id: string, user: User): Promise<Item> {
@@ -33,8 +55,15 @@ export class ItemsService {
       throw new BadRequestException('自身の商品を購入することはできません！')
     }
     item.status = ItemStatus.SOLD_OUT;
-    await this.itemRepository.save(item)
-    return item
+    item.updateAt = new Date().toISOString();
+    const updatedItem = await this.itemRepository.update(id, {
+      status: item.status,
+      updateAt: item.updateAt,
+    });
+    if (updatedItem.affected === 0) {
+      throw new NotFoundException(`${id}のデータを更新できませんでした`);
+    }
+    return item;
   }
 
   async delete(id: string, user: User): Promise<void> {
