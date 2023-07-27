@@ -22,21 +22,9 @@ export class LogtblsService {
         where tag <> 'get_pid_trigger_2023_07_14_19_48_11_574439' 
           and ((tag like '%spx%')) 
           and ((log_date between '2023-07-01 00:00' and '2023-07-31 23:59')) 
-          and ( log_data->>'srcip'::text like '%172.25%') 
+          and ( log_data->>'record'::text like '%test%') 
         order by log_date`
       )
-      //.createQueryBuilder()
-      //.select('log_tbl.tag')
-      //.from(LogTbl,'logtbl')
-      //.where(
-      //  'logtbl.log_data ::jsonb @> :log_data', {
-      //    log_data: {
-      //      srcip: '172.25.60.197'
-      //    }
-      //  }
-      //)
-      //.orderBy('logtbl.log_date')
-      //.getMany();
 
     console.log(result);
     return result;
