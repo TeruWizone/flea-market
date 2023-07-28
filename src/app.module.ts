@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ItemsModule } from './items/items.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { DataSource }from 'typeorm';
+import { DataSource } from 'typeorm';
 import { AuthModule } from './auth/auth.module';
 import { LogtblsModule } from './logtbls/logtbls.module';
 
@@ -15,7 +15,7 @@ import { LogtblsModule } from './logtbls/logtbls.module';
       username: 'postgres',
       password: 'postgres',
       database: 'postgres',
-      autoLoadEntities: true
+      autoLoadEntities: true,
     }),
     AuthModule,
     LogtblsModule,

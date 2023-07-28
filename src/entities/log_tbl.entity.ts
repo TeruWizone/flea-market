@@ -1,4 +1,4 @@
-import { Column, Entity, Timestamp } from "typeorm";
+import { Column, Entity, Timestamp } from 'typeorm';
 
 @Entity()
 export class LogTbl {

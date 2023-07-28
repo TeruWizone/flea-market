@@ -1,4 +1,4 @@
-import { DataSource } from "typeorm";
+import { DataSource } from 'typeorm';
 
 export default new DataSource({
   type: 'postgres',
@@ -9,9 +9,9 @@ export default new DataSource({
   database: 'postgres',
   synchronize: true,
   entities: [
-      'src/entities/*.entity.ts' // エンティティソースコード
+    'src/entities/*.entity.ts', // エンティティソースコード
   ],
   migrations: [
-      'src/migrations/*.ts' // マイグレーションスクリプトの格納場所
+    'src/migrations/*.ts', // マイグレーションスクリプトの格納場所
   ],
 });
