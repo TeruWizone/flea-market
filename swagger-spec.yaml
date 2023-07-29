@@ -1,0 +1,215 @@
+openapi: 3.0.0
+paths:
+  /items:
+    get:
+      operationId: ItemsController_findAll
+      summary: find all items
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags: &ref_0
+        - items
+    post:
+      operationId: ItemsController_create
+      summary: create item
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateItemDto'
+      responses:
+        '400':
+          description: Bad Request.
+        '401':
+          description: Unauthorized.
+      tags: *ref_0
+      security:
+        - bearer: []
+  /items/{id}:
+    get:
+      operationId: ItemsController_findById
+      summary: find by id
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '404':
+          description: Not Found.
+      tags: *ref_0
+    patch:
+      operationId: ItemsController_updateStatus
+      summary: update status of item
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '401':
+          description: Unauthorized.
+      tags: *ref_0
+      security:
+        - bearer: []
+    delete:
+      operationId: ItemsController_delete
+      summary: delete item
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '401':
+          description: Unauthorized.
+      tags: *ref_0
+      security:
+        - bearer: []
+  /auth/signup:
+    post:
+      operationId: AuthController_signUp
+      summary: signup
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserDto'
+      responses:
+        '201':
+          description: ''
+      tags: &ref_1
+        - auth
+  /auth/signin:
+    post:
+      operationId: AuthController_signIn
+      summary: signin and return with JWT
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CredentialsDto'
+      responses:
+        '200':
+          description: signin completed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LogTblDto'
+        '401':
+          description: Unauthorized.
+      tags: *ref_1
+  /logtbls:
+    get:
+      operationId: LogtblsController_findAll
+      summary: find all
+      parameters: []
+      responses:
+        '200':
+          description: The found record
+        '403':
+          description: Forbidden.
+      tags:
+        - logtbls
+      security:
+        - bearer: []
+info:
+  title: Flea Market
+  description: Flea Market Application Endpoint API description
+  version: '1.0'
+  contact: {}
+tags:
+  - name: logtbls
+    description: ''
+servers: []
+components:
+  securitySchemes:
+    bearer:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+  schemas:
+    CreateItemDto:
+      type: object
+      properties:
+        name:
+          type: string
+          example: IZONEスマフォケース
+          description: Product name.
+        price:
+          type: number
+          example: '1200'
+          description: Price.
+        description:
+          type: string
+          example: IZONE special edition smartphone case for WIZONE of world.
+          description: Description of product.
+      required:
+        - name
+        - price
+        - description
+    CreateUserDto:
+      type: object
+      properties:
+        username:
+          type: string
+          example: shibuya
+          description: User name for login.
+        password:
+          type: string
+          example: password
+          description: Password for login.
+        status:
+          type: string
+          example: FREE
+          description: User class status (FREE or PREMIUM).
+      required:
+        - username
+        - password
+        - status
+    CredentialsDto:
+      type: object
+      properties:
+        username:
+          type: string
+          example: shibuya
+          description: User name for authentication.
+        password:
+          type: string
+          example: password
+          description: Password for authentication.
+      required:
+        - username
+        - password
+    LogTblDto:
+      type: object
+      properties:
+        tag:
+          type: string
+          example: spx
+          description: Tag of log.
+        log_date:
+          format: date-time
+          type: string
+          example: '2023-07-24 14:01:01'
+          description: Timestamp of log.
+        log_data:
+          type: string
+          example: >-
+            { "record": "test log", "srcip": "172.25.1.1", "sport": 5000,
+            "music": "IZONE", "hobby": "K-pop" }
+          description: Log of JSON type data
+      required:
+        - tag
+        - log_date
+        - log_data

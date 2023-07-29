@@ -1,6 +1,6 @@
-import { CanActivate, ExecutionContext, Injectable } from "@nestjs/common";
-import { Reflector } from "@nestjs/core";
-import { Observable } from "rxjs";
+import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
+import { Reflector } from '@nestjs/core';
+//import { Observable } from 'rxjs';
 
 // Guardとして機能させるためにはCanActivateを用いる
 // 補足：JwtAuthGuard では継承した AuthGuard側でCanActivateが実装されている
@@ -8,15 +8,15 @@ import { Observable } from "rxjs";
 @Injectable()
 export class RolesGuard implements CanActivate {
   // reflector：デコレータでセットしたメタデータを取得するためのもの
-  constructor(private reflector: Reflector) {} 
+  constructor(private reflector: Reflector) {}
 
   canActivate(ctx: ExecutionContext): boolean {
     // デコレータでセットされたメタデータを取得
     const requiredStatues = this.reflector.get<string[]>(
-      'statuses',       // 取得したいメタデータのキー
+      'statuses', // 取得したいメタデータのキー
       ctx.getHandler(), // ハンドラのメタデータを取得
     );
-    
+
     // デコレータに何も指定されてないときは（制約はないので）実行を許可(true)
     if (!requiredStatues) {
       return true;

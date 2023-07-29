@@ -10,7 +10,7 @@ import { AuthModule } from 'src/auth/auth.module';
   imports: [
     TypeOrmModule.forFeature([Item]), // Repositoryの登録は一つの機能が対象なのでFeatureを使う
     AuthModule, // AuthModuleのexportsに記述したProvidersを利用
-  ], 
+  ],
   controllers: [ItemsController],
   providers: [ItemRepository, ItemsService],
 })

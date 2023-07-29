@@ -13,7 +13,7 @@ export class AuthService {
   constructor(
     //private readonly userRepository: UserRepository,
     // Repositoryファイルで分けない書き方
-    @InjectRepository(User) private readonly userRepository: Repository<User>, 
+    @InjectRepository(User) private readonly userRepository: Repository<User>,
     private readonly jwtService: JwtService,
   ) {}
 
@@ -32,11 +32,13 @@ export class AuthService {
     });
 
     await this.userRepository.save(user);
-    return user;  
+    return user;
   }
 
   // ユーザ認証（成功でJWT返却）
-  async signIn(credentialsDto: CredentialsDto): Promise<{ accessToken: string }> {
+  async signIn(
+    credentialsDto: CredentialsDto,
+  ): Promise<{ accessToken: string }> {
     const { username, password } = credentialsDto;
     const user = await this.userRepository.findOneBy({ username });
 
@@ -45,11 +47,11 @@ export class AuthService {
       // JWTの生成（ここではid,usernameのみ、任意のものを追加可）
       const payload = { id: user.id, username: user.username };
       // 署名されたToken作成
-      const accessToken = await this.jwtService.sign(payload)
+      const accessToken = await this.jwtService.sign(payload);
       return { accessToken };
     }
-    throw new UnauthorizedException( // 400エラー生成
-      'ユーザ名またはパスワードを確認してください'
+    throw new UnauthorizedException( // 401エラー生成
+      'ユーザ名またはパスワードを確認してください',
     );
   }
 }

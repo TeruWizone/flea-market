@@ -8,7 +8,7 @@
 //
 // Roleデコレータの役割は認可が必要なRoleを受け取りメタデータに登録するというもの
 
-import { SetMetadata } from "@nestjs/common";
+import { SetMetadata } from '@nestjs/common';
 
-export const Role = (...statuses: string[]) => SetMetadata('statuses', statuses);
-
+export const Role = (...statuses: string[]) =>
+  SetMetadata('statuses', statuses);

@@ -1,6 +1,6 @@
-import { ItemStatus } from "../items/item-status.enum";
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { User } from "./user.entity";
+import { ItemStatus } from '../items/item-status.enum';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { User } from './user.entity';
 
 @Entity()
 export class Item {
@@ -18,7 +18,7 @@ export class Item {
 
   @Column()
   status: ItemStatus;
-    
+
   @Column()
   createdAt: string;
 
@@ -28,7 +28,7 @@ export class Item {
   // リレーション用
   @ManyToOne(() => User, (user) => user.items)
   user: User;
-  
+
   // 上記の追加でItemにuserIdというカラムが追加されリレーションが設定される
   // userIdはfindByIdなので取得ができない
   // 以下の追加が必要になる（＆再度Migration）

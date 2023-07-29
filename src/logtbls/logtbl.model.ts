@@ -1,4 +1,4 @@
-import { Timestamp } from "typeorm";
+import { Timestamp } from 'typeorm';
 
 export interface LogTbl {
   tag: string;

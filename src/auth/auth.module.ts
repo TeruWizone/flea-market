@@ -17,13 +17,18 @@ import { RolesGuard } from './guards/roles.guard';
     JwtModule.register({
       secret: 'secretKey123', // 秘密鍵
       signOptions: {
-        expiresIn: 3600,      // 有効期限（秒）
-      }
-    })
+        expiresIn: 3600, // 有効期限（秒）
+      },
+    }),
   ],
   controllers: [AuthController],
-  providers: [UserRepository, AuthService, JwtStrategy, JwtAuthGuard, RolesGuard],
-  exports: [JwtStrategy, JwtAuthGuard, RolesGuard],  //他の場所（itemsモジュール側）で利用するため
+  providers: [
+    UserRepository,
+    AuthService,
+    JwtStrategy,
+    JwtAuthGuard,
+    RolesGuard,
+  ],
+  exports: [JwtStrategy, JwtAuthGuard, RolesGuard], //他の場所（itemsモジュール側）で利用するため
 })
 export class AuthModule {}
-

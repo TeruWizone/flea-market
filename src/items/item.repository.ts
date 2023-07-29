@@ -1,5 +1,5 @@
 import { Item } from '../entities/item.entity';
-import { Injectable } from "@nestjs/common";
+import { Injectable } from '@nestjs/common';
 import { DataSource, Repository } from 'typeorm';
 import { CreateItemDto } from './dto/create-item.dto';
 import { ItemStatus } from './item-status.enum';
@@ -20,8 +20,8 @@ export class ItemRepository extends Repository<Item> {
       status: ItemStatus.ON_SALE,
       createdAt: new Date().toISOString(),
       updateAt: new Date().toISOString(),
-      user: user,   // for Relation 
-    }); 
+      user: user, // for Relation
+    });
 
     await this.save(item);
 
