@@ -109,7 +109,7 @@ paths:
         '401':
           description: Unauthorized.
       tags: *ref_1
-  /logtbls:
+  /logsearch/search:
     get:
       operationId: LogtblsController_findAll
       summary: find all
@@ -120,7 +120,7 @@ paths:
         '403':
           description: Forbidden.
       tags:
-        - logtbls
+        - logsearch
       security:
         - bearer: []
 info:

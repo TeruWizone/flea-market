@@ -9,12 +9,12 @@ import {
 } from '@nestjs/swagger';
 
 @ApiBearerAuth()
-@ApiTags('logtbls')
-@Controller('logtbls')
+@ApiTags('logsearch')
+@Controller('logsearch')
 export class LogtblsController {
   constructor(private readonly logtblsService: LogtblsService) {}
 
-  @Get()
+  @Get('search')
   @ApiOperation({ summary: 'find all' })
   @ApiResponse({
     status: 200,
