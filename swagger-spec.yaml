@@ -105,6 +105,14 @@ paths:
         '401':
           description: Unauthorized.
       tags: *ref_1
+  /auth/users:
+    get:
+      operationId: AuthController_users
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags: *ref_1
   /logsearch/search:
     get:
       operationId: LogtblsController_findAll
