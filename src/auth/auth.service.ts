@@ -40,6 +40,7 @@ export class AuthService {
     credentialsDto: CredentialsDto,
   ): Promise<{ accessToken: string }> {
     const { username, password } = credentialsDto;
+    console.log(username, password);
     const user = await this.userRepository.findOneBy({ username });
 
     // 平文パスワードとDBのハッシュ化されたパスワードを比較
@@ -48,6 +49,7 @@ export class AuthService {
       const payload = { id: user.id, username: user.username };
       // 署名されたToken作成
       const accessToken = await this.jwtService.sign(payload);
+      console.log(accessToken);
       return { accessToken };
     }
     throw new UnauthorizedException( // 401エラー生成

@@ -26,6 +26,8 @@ async function bootstrap() {
   fs.writeFileSync('./swagger-spec.yaml', dump(document, {}));
   SwaggerModule.setup('api', app, document);
 
+  app.enableCors(); // Enable CORS in NestJS
+
   await app.listen(3001);
   console.log(`Application is running on: ${await app.getUrl()}`);
 }

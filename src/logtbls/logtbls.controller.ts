@@ -21,7 +21,7 @@ export class LogtblsController {
     description: 'The found record',
   })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
-  @Header('Access-Control-Allow-Origin', '*')
+  //@Header('Access-Control-Allow-Origin', '*')
   async findAll(): Promise<LogTbl[]> {
     return await this.logtblsService.findAll();
   }
