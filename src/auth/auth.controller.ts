@@ -8,6 +8,7 @@ import {
   Delete,
   Param,
   Put,
+  UseGuards,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -20,6 +21,7 @@ import {
   TestChangeRoleDto,
   TestSignUpDto,
 } from './dto/test-req.dto';
+import { JwtAuthGuard } from './guards/jwt-auth.guard';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -59,6 +61,7 @@ export class AuthController {
   lastId = 6;
 
   @Get('users')
+  //@UseGuards(JwtAuthGuard)
   async users(): Promise<TestUser[]> {
     //throw new UnauthorizedException();
     console.log(this.result);
@@ -66,6 +69,7 @@ export class AuthController {
   }
 
   @Post('signup')
+  //@UseGuards(JwtAuthGuard)
   async signup(@Body() inputDto: TestSignUpDto): Promise<TestUser> {
     console.log('body:', inputDto);
     console.log(inputDto);
@@ -81,13 +85,16 @@ export class AuthController {
   }
 
   @Delete(':id')
+  //@UseGuards(JwtAuthGuard)
   async delete(@Param('id') id: string): Promise<void> {
     console.log('id:', id);
-    this.result.pop();
+    //this.result.pop();
+    this.result = this.result.filter((v) => v.id !== id);
     return;
   }
 
   @Put(':id/change-role')
+  //@UseGuards(JwtAuthGuard)
   async changeRole(
     @Param('id') id: string,
     @Body() inputDto: TestChangeRoleDto,
@@ -100,6 +107,7 @@ export class AuthController {
   }
 
   @Put('change-password')
+  @UseGuards(JwtAuthGuard)
   async changePassword(@Body() inputDto: TestChangePasswordDto): Promise<void> {
     console.log('body:', inputDto);
     return;
