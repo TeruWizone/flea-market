@@ -72,7 +72,7 @@ paths:
       tags: *ref_0
       security:
         - bearer: []
-  /auth/signup:
+  /auth/signup0:
     post:
       operationId: AuthController_signUp
       summary: signup
@@ -109,6 +109,66 @@ paths:
     get:
       operationId: AuthController_users
       parameters: []
+      responses:
+        '200':
+          description: ''
+      tags: *ref_1
+  /auth/signup:
+    post:
+      operationId: AuthController_signup
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TestSignUpDto'
+      responses:
+        '201':
+          description: ''
+      tags: *ref_1
+  /auth/{id}:
+    delete:
+      operationId: AuthController_delete
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+      tags: *ref_1
+  /auth/{id}/change-role:
+    put:
+      operationId: AuthController_changeRole
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TestChangeRoleDto'
+      responses:
+        '200':
+          description: ''
+      tags: *ref_1
+  /auth/change-password:
+    put:
+      operationId: AuthController_changePassword
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TestChangePasswordDto'
       responses:
         '200':
           description: ''
@@ -195,3 +255,12 @@ components:
       required:
         - username
         - password
+    TestSignUpDto:
+      type: object
+      properties: {}
+    TestChangeRoleDto:
+      type: object
+      properties: {}
+    TestChangePasswordDto:
+      type: object
+      properties: {}

@@ -46,7 +46,7 @@ export class AuthService {
     // 平文パスワードとDBのハッシュ化されたパスワードを比較
     if (user && (await bcrypt.compare(password, user.password))) {
       // JWTの生成（ここではid,usernameのみ、任意のものを追加可）
-      const payload = { id: user.id, username: user.username };
+      const payload = { id: user.id, username: user.username, role: 'ADMIN' };
       // 署名されたToken作成
       const accessToken = await this.jwtService.sign(payload);
       console.log(accessToken);
