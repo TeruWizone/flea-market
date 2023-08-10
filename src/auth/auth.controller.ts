@@ -61,7 +61,7 @@ export class AuthController {
   lastId = 6;
 
   @Get('users')
-  //@UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   async users(): Promise<TestUser[]> {
     //throw new UnauthorizedException();
     console.log(this.result);
@@ -69,7 +69,7 @@ export class AuthController {
   }
 
   @Post('signup')
-  //@UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   async signup(@Body() inputDto: TestSignUpDto): Promise<TestUser> {
     console.log('body:', inputDto);
     console.log(inputDto);
@@ -85,7 +85,7 @@ export class AuthController {
   }
 
   @Delete(':id')
-  //@UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   async delete(@Param('id') id: string): Promise<void> {
     console.log('id:', id);
     //this.result.pop();
@@ -94,7 +94,7 @@ export class AuthController {
   }
 
   @Put(':id/change-role')
-  //@UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   async changeRole(
     @Param('id') id: string,
     @Body() inputDto: TestChangeRoleDto,
