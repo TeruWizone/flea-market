@@ -45,7 +45,7 @@ export class AuthController {
   async signIn(
     @Body() credentialsDto: CredentialsDto,
   ): Promise<{ accessToken: string }> {
-    console.log(credentialsDto);
+    console.info(credentialsDto);
     return await this.authService.signIn(credentialsDto);
   }
 
@@ -64,15 +64,15 @@ export class AuthController {
   @UseGuards(JwtAuthGuard)
   async users(): Promise<TestUser[]> {
     //throw new UnauthorizedException();
-    console.log(this.result);
+    console.info(this.result);
     return this.result as TestUser[];
   }
 
   @Post('signup')
   @UseGuards(JwtAuthGuard)
   async signup(@Body() inputDto: TestSignUpDto): Promise<TestUser> {
-    console.log('body:', inputDto);
-    console.log(inputDto);
+    console.info('body:', inputDto);
+    console.debug(inputDto);
     this.lastId += 1;
     const result = {
       id: String(this.lastId),
@@ -87,7 +87,7 @@ export class AuthController {
   @Delete(':id')
   @UseGuards(JwtAuthGuard)
   async delete(@Param('id') id: string): Promise<void> {
-    console.log('id:', id);
+    console.info('id:', id);
     //this.result.pop();
     this.result = this.result.filter((v) => v.id !== id);
     return;
@@ -99,7 +99,7 @@ export class AuthController {
     @Param('id') id: string,
     @Body() inputDto: TestChangeRoleDto,
   ): Promise<void> {
-    console.log('id:', id, 'body:', inputDto);
+    console.info('id:', id, 'body:', inputDto);
     this.result.map((v) => {
       return (v.role = v.id === id ? inputDto.role : v.role);
     });
@@ -109,7 +109,7 @@ export class AuthController {
   @Put('change-password')
   @UseGuards(JwtAuthGuard)
   async changePassword(@Body() inputDto: TestChangePasswordDto): Promise<void> {
-    console.log('body:', inputDto);
+    console.info('body:', inputDto);
     return;
   }
 }
