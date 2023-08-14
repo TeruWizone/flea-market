@@ -14,11 +14,18 @@ import { AuthService } from './auth.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from 'src/entities/user.entity';
 import { CredentialsDto } from './dto/credentials.dto';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { TestUser } from './types/test-res';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
+import { TestJsonKey, TestUser } from './types/test-res';
 import {
   TestChangePasswordDto,
   TestChangeRoleDto,
+  TestJsonKeyDto,
   TestSignUpDto,
 } from './dto/test-req.dto';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
@@ -111,5 +118,41 @@ export class AuthController {
   async changePassword(@Body() inputDto: TestChangePasswordDto): Promise<void> {
     console.info('body:', inputDto);
     return;
+  }
+}
+
+@Controller('json-key')
+export class JsonKeyController {
+  jsonkeys = [
+    { idx: '1', keyName: 'srcip', keyType: 'TEXT' },
+    { idx: '2', keyName: 'sport', keyType: 'INT' },
+    { idx: '3', keyName: 'dstip', keyType: 'TEXT' },
+    { idx: '4', keyName: 'dport', keyType: 'INT' },
+    { idx: '5', keyName: 'area', keyType: 'TEXT' },
+    { idx: '6', keyName: 'area2', keyType: 'INT' },
+    { idx: '7', keyName: 'area3', keyType: 'TEXT' },
+    { idx: '8', keyName: 'area4', keyType: 'INT' },
+    { idx: '9', keyName: 'area5', keyType: 'TEXT' },
+    { idx: '10', keyName: 'area7area7', keyType: 'INT' },
+  ];
+
+  @Get()
+  @ApiOperation({ summary: 'jsonキー取得' })
+  @UseGuards(JwtAuthGuard)
+  async get(): Promise<TestJsonKey[]> {
+    console.info(this.jsonkeys);
+    return this.jsonkeys as TestJsonKey[];
+  }
+
+  @Post('changeAll')
+  @ApiOperation({ summary: 'jsonキー全更新' })
+  @ApiBody({ type: [TestJsonKeyDto] })
+  @UseGuards(JwtAuthGuard)
+  async changeAll(
+    @Body() testJsonKeysDto: TestJsonKeyDto[],
+  ): Promise<TestJsonKey[]> {
+    console.info('body:', testJsonKeysDto);
+    this.jsonkeys = testJsonKeysDto;
+    return this.jsonkeys as TestJsonKey[];
   }
 }

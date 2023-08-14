@@ -173,6 +173,30 @@ paths:
         '200':
           description: ''
       tags: *ref_1
+  /json-key:
+    get:
+      operationId: JsonKeyController_get
+      summary: jsonキー取得
+      parameters: []
+      responses:
+        '200':
+          description: ''
+  /json-key/changeAll:
+    post:
+      operationId: JsonKeyController_changeAll
+      summary: jsonキー全更新
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/TestJsonKeyDto'
+      responses:
+        '201':
+          description: ''
   /logsearch/search:
     get:
       operationId: LogtblsController_findAll
@@ -262,5 +286,8 @@ components:
       type: object
       properties: {}
     TestChangePasswordDto:
+      type: object
+      properties: {}
+    TestJsonKeyDto:
       type: object
       properties: {}
