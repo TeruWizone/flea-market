@@ -211,6 +211,42 @@ paths:
           description: ''
       security:
         - bearer: []
+  /search-history:
+    get:
+      operationId: SearchHistoryController_get
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      security: &ref_2
+        - bearer: []
+  /search-history/create:
+    post:
+      operationId: SearchHistoryController_create
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TestSearchHistoryDto'
+      responses:
+        '201':
+          description: ''
+      security: *ref_2
+  /search-history/{id}:
+    delete:
+      operationId: SearchHistoryController_delete
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+      security: *ref_2
   /logsearch/search:
     get:
       operationId: LogtblsController_findAll
@@ -303,5 +339,8 @@ components:
       type: object
       properties: {}
     TestJsonKeyDto:
+      type: object
+      properties: {}
+    TestSearchHistoryDto:
       type: object
       properties: {}

@@ -21,14 +21,16 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { TestJsonKey, TestUser } from './types/test-res';
+import { TestJsonKey, TestSearchHistory, TestUser } from './types/test-res';
 import {
   TestChangePasswordDto,
   TestChangeRoleDto,
   TestJsonKeyDto,
+  TestSearchHistoryDto,
   TestSignUpDto,
 } from './dto/test-req.dto';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
+import { GetUser } from './decorator/get-user.decorator';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -126,6 +128,7 @@ export class AuthController {
   }
 }
 
+///////////////////////////////////////////
 @Controller('json-key')
 export class JsonKeyController {
   jsonkeys = [
@@ -161,5 +164,78 @@ export class JsonKeyController {
     console.info('body:', testJsonKeysDto);
     this.jsonkeys = testJsonKeysDto;
     return this.jsonkeys as TestJsonKey[];
+  }
+}
+
+///////////////////////////////////////
+@ApiBearerAuth()
+@UseGuards(JwtAuthGuard)
+@Controller('search-history')
+export class SearchHistoryController {
+  histories = [
+    {
+      id: '1',
+      title: 'TEST TITLE001',
+      searchDateFrom: '2023-07-01T01:01:01Z',
+      searchDateTo: '2023-08-30T02:02:02Z',
+      data: [
+        {
+          idx: 0,
+          keyName: 'srcip',
+          conditionType: 'EQ',
+          conditionValue: '172.25.60.1',
+          conditionOperator: '',
+        },
+      ],
+    },
+    {
+      id: '2',
+      title: 'TEST TITLE002',
+      searchDateFrom: '2023-07-01T01:01:01Z',
+      searchDateTo: '2023-08-30T02:02:02Z',
+      data: [
+        {
+          idx: 0,
+          keyName: 'srcip',
+          conditionType: 'EQ',
+          conditionValue: '172.25.60.1',
+          conditionOperator: 'AND',
+        },
+        {
+          idx: 1,
+          keyName: 'sport',
+          conditionType: 'EQ',
+          conditionValue: '3000',
+          conditionOperator: '',
+        },
+      ],
+    },
+  ];
+
+  lastId = 2;
+
+  @Get()
+  async get(@GetUser() user: User): Promise<TestSearchHistory[]> {
+    return this.histories as TestSearchHistory[];
+  }
+
+  @Post('create')
+  async create(
+    @Body() inputDto: TestSearchHistoryDto,
+    @GetUser() user: User,
+  ): Promise<void> {
+    console.info('User:', user, ' body:', inputDto);
+    this.lastId += 1;
+    const newHistory = { id: String(this.lastId), ...inputDto };
+    console.debug('newHistory:', newHistory);
+    this.histories.push(newHistory);
+    return;
+  }
+
+  @Delete(':id')
+  async delete(@Param('id') id: string): Promise<void> {
+    console.info('id:', id);
+    this.histories = this.histories.filter((v) => v.id !== id);
+    return;
   }
 }

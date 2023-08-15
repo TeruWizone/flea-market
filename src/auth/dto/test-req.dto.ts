@@ -21,3 +21,34 @@ export class TestJsonKeyDto {
   keyName: string;
   keyType: KeyType;
 }
+
+type CondType =
+  | 'EQ'
+  | 'NE'
+  | 'LIKE'
+  | 'LIKE_FORWARD'
+  | 'LIKE_BACKWARD'
+  | 'NOT_LIKE'
+  | 'NOT_LIKE_FORWARD'
+  | 'NOT_LIKE_BACKWARD'
+  | 'LT'
+  | 'LE'
+  | 'GT'
+  | 'GE';
+
+type CondOpe = 'AND' | 'OR' | '';
+
+export class TestConditionDto {
+  idx: number;
+  keyName: string;
+  conditionType: CondType;
+  conditionValue: string;
+  conditionOperator: CondOpe;
+}
+
+export class TestSearchHistoryDto {
+  title: string;
+  searchDateFrom: string;
+  searchDateTo: string;
+  data: TestConditionDto[];
+}

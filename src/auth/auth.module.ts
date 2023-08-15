@@ -1,5 +1,9 @@
 import { Module } from '@nestjs/common';
-import { AuthController, JsonKeyController } from './auth.controller';
+import {
+  AuthController,
+  JsonKeyController,
+  SearchHistoryController,
+} from './auth.controller';
 import { AuthService } from './auth.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from 'src/entities/user.entity';
@@ -21,7 +25,7 @@ import { RolesGuard } from './guards/roles.guard';
       },
     }),
   ],
-  controllers: [AuthController, JsonKeyController],
+  controllers: [AuthController, JsonKeyController, SearchHistoryController],
   providers: [
     UserRepository,
     AuthService,
