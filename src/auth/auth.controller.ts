@@ -68,6 +68,7 @@ export class AuthController {
   lastId = 6;
 
   @Get('users')
+  @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   async users(): Promise<TestUser[]> {
     //throw new UnauthorizedException();
@@ -76,6 +77,7 @@ export class AuthController {
   }
 
   @Post('signup')
+  @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   async signup(@Body() inputDto: TestSignUpDto): Promise<TestUser> {
     console.info('body:', inputDto);
@@ -92,6 +94,7 @@ export class AuthController {
   }
 
   @Delete(':id')
+  @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   async delete(@Param('id') id: string): Promise<void> {
     console.info('id:', id);
@@ -101,6 +104,7 @@ export class AuthController {
   }
 
   @Put(':id/change-role')
+  @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   async changeRole(
     @Param('id') id: string,
@@ -114,6 +118,7 @@ export class AuthController {
   }
 
   @Put('change-password')
+  @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   async changePassword(@Body() inputDto: TestChangePasswordDto): Promise<void> {
     console.info('body:', inputDto);
@@ -137,6 +142,7 @@ export class JsonKeyController {
   ];
 
   @Get()
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'jsonキー取得' })
   @UseGuards(JwtAuthGuard)
   async get(): Promise<TestJsonKey[]> {
@@ -145,6 +151,7 @@ export class JsonKeyController {
   }
 
   @Post('changeAll')
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'jsonキー全更新' })
   @ApiBody({ type: [TestJsonKeyDto] })
   @UseGuards(JwtAuthGuard)

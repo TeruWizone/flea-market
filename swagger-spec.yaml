@@ -113,6 +113,8 @@ paths:
         '200':
           description: ''
       tags: *ref_1
+      security:
+        - bearer: []
   /auth/signup:
     post:
       operationId: AuthController_signup
@@ -127,6 +129,8 @@ paths:
         '201':
           description: ''
       tags: *ref_1
+      security:
+        - bearer: []
   /auth/{id}:
     delete:
       operationId: AuthController_delete
@@ -140,6 +144,8 @@ paths:
         '200':
           description: ''
       tags: *ref_1
+      security:
+        - bearer: []
   /auth/{id}/change-role:
     put:
       operationId: AuthController_changeRole
@@ -159,6 +165,8 @@ paths:
         '200':
           description: ''
       tags: *ref_1
+      security:
+        - bearer: []
   /auth/change-password:
     put:
       operationId: AuthController_changePassword
@@ -173,6 +181,8 @@ paths:
         '200':
           description: ''
       tags: *ref_1
+      security:
+        - bearer: []
   /json-key:
     get:
       operationId: JsonKeyController_get
@@ -181,6 +191,8 @@ paths:
       responses:
         '200':
           description: ''
+      security:
+        - bearer: []
   /json-key/changeAll:
     post:
       operationId: JsonKeyController_changeAll
@@ -197,6 +209,8 @@ paths:
       responses:
         '201':
           description: ''
+      security:
+        - bearer: []
   /logsearch/search:
     get:
       operationId: LogtblsController_findAll
