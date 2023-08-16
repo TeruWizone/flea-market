@@ -206,6 +206,13 @@ export class SearchHistoryController {
           keyName: 'sport',
           conditionType: 'EQ',
           conditionValue: '3000',
+          conditionOperator: 'OR',
+        },
+        {
+          idx: 2,
+          keyName: 'sport',
+          conditionType: 'LIKE_FORWARD',
+          conditionValue: '3000',
           conditionOperator: '',
         },
       ],

@@ -5,7 +5,7 @@ export class LogTbl {
   @Column({ type: 'text' })
   tag: string;
 
-  @Column({ type: 'timestamp without time zone', primary: true })
+  @Column({ type: 'timestamp with time zone', primary: true })
   log_date: Timestamp;
 
   @Column({ type: 'jsonb' })
