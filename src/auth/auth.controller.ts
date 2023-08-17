@@ -213,6 +213,73 @@ export class SearchHistoryController {
           keyName: 'sport',
           conditionType: 'LIKE_FORWARD',
           conditionValue: '3000',
+          conditionOperator: 'AND',
+        },
+        {
+          idx: 3,
+          keyName: 'dport',
+          conditionType: 'LIKE_FORWARD',
+          conditionValue: '5000',
+          conditionOperator: '',
+        },
+      ],
+    },
+    {
+      id: '3',
+      title: 'TEST TITLE003',
+      searchDateFrom: '2023-07-01T01:01:01Z',
+      searchDateTo: '2023-08-30T02:02:02Z',
+      data: [
+        {
+          idx: 0,
+          keyName: 'srcip',
+          conditionType: 'EQ',
+          conditionValue: '172.25.60.1',
+          conditionOperator: '',
+        },
+      ],
+    },
+    {
+      id: '4',
+      title: 'TEST TITLE004',
+      searchDateFrom: '2023-07-01T01:01:01Z',
+      searchDateTo: '2023-08-30T02:02:02Z',
+      data: [
+        {
+          idx: 0,
+          keyName: 'srcip',
+          conditionType: 'EQ',
+          conditionValue: '172.25.60.1',
+          conditionOperator: '',
+        },
+      ],
+    },
+    {
+      id: '5',
+      title: 'TEST TITLE005',
+      searchDateFrom: '2023-07-01T01:01:01Z',
+      searchDateTo: '2023-08-30T02:02:02Z',
+      data: [
+        {
+          idx: 0,
+          keyName: 'srcip',
+          conditionType: 'EQ',
+          conditionValue: '172.25.60.1',
+          conditionOperator: '',
+        },
+      ],
+    },
+    {
+      id: '6',
+      title: 'TEST TITLE006',
+      searchDateFrom: '2023-07-01T01:01:01Z',
+      searchDateTo: '2023-08-30T02:02:02Z',
+      data: [
+        {
+          idx: 0,
+          keyName: 'srcip',
+          conditionType: 'EQ',
+          conditionValue: '172.25.60.1',
           conditionOperator: '',
         },
       ],
