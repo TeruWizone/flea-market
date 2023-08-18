@@ -180,7 +180,7 @@ export class SearchHistoryController {
       searchDateTo: '2023-08-30T02:02:02Z',
       data: [
         {
-          idx: 0,
+          idx: 1,
           keyName: 'srcip',
           conditionType: 'EQ',
           conditionValue: '172.25.60.1',
@@ -195,28 +195,28 @@ export class SearchHistoryController {
       searchDateTo: '2023-08-30T02:02:02Z',
       data: [
         {
-          idx: 0,
+          idx: 1,
           keyName: 'srcip',
           conditionType: 'EQ',
           conditionValue: '172.25.60.1',
           conditionOperator: 'AND',
         },
         {
-          idx: 1,
+          idx: 2,
           keyName: 'sport',
           conditionType: 'EQ',
           conditionValue: '3000',
           conditionOperator: 'OR',
         },
         {
-          idx: 2,
+          idx: 3,
           keyName: 'sport',
           conditionType: 'LIKE_FORWARD',
           conditionValue: '3000',
           conditionOperator: 'AND',
         },
         {
-          idx: 3,
+          idx: 4,
           keyName: 'dport',
           conditionType: 'LIKE_FORWARD',
           conditionValue: '5000',
@@ -231,7 +231,7 @@ export class SearchHistoryController {
       searchDateTo: '2023-08-30T02:02:02Z',
       data: [
         {
-          idx: 0,
+          idx: 1,
           keyName: 'srcip',
           conditionType: 'EQ',
           conditionValue: '172.25.60.1',
@@ -246,7 +246,7 @@ export class SearchHistoryController {
       searchDateTo: '2023-08-30T02:02:02Z',
       data: [
         {
-          idx: 0,
+          idx: 1,
           keyName: 'srcip',
           conditionType: 'EQ',
           conditionValue: '172.25.60.1',
@@ -261,7 +261,7 @@ export class SearchHistoryController {
       searchDateTo: '2023-08-30T02:02:02Z',
       data: [
         {
-          idx: 0,
+          idx: 1,
           keyName: 'srcip',
           conditionType: 'EQ',
           conditionValue: '172.25.60.1',
@@ -276,7 +276,7 @@ export class SearchHistoryController {
       searchDateTo: '2023-08-30T02:02:02Z',
       data: [
         {
-          idx: 0,
+          idx: 1,
           keyName: 'srcip',
           conditionType: 'EQ',
           conditionValue: '172.25.60.1',
@@ -286,7 +286,7 @@ export class SearchHistoryController {
     },
   ];
 
-  lastId = 2;
+  lastId = 6;
 
   @Get()
   async get(@GetUser() user: User): Promise<TestSearchHistory[]> {
