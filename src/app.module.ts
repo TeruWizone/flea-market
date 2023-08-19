@@ -10,7 +10,7 @@ import { LogtblsModule } from './logtbls/logtbls.module';
     ItemsModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost', //'loona.japaneast.cloudapp.azure.com',
+      host: '172.25.60.65', //'loona.japaneast.cloudapp.azure.com',
       port: 5432,
       username: 'postgres', //'sleuser',
       password: 'postgres', //'Mercury1',

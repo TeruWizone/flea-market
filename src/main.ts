@@ -6,10 +6,10 @@ import * as fs from 'fs';
 import { dump } from 'js-yaml';
 
 async function bootstrap() {
-  const httpsOptions = {
-    key: fs.readFileSync('./ssl/exidsvrnonkey.pem'),
-    cert: fs.readFileSync('./ssl/exidsvrcrt.pem'),
-  };
+  //const httpsOptions = {
+  //  key: fs.readFileSync('./ssl/exidsvrnonkey.pem'),
+  //  cert: fs.readFileSync('./ssl/exidsvrcrt.pem'),
+  //};
   //const app = await NestFactory.create(AppModule, {httpsOptions});
   const app = await NestFactory.create(AppModule);
   app.useGlobalPipes(new ValidationPipe());

@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: tokyo1
+  name: flea-service
+spec:
+  type: ClusterIP
+  ports:
+    - port: 3001
+      targetPort: 3001
+  selector:
+    app: flea
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: tokyo1
+  name: flea-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flea
+  template:
+    metadata:
+      labels:
+        app: flea
+    spec:
+      imagePullSecrets:
+        - name: regcred
+      containers:
+        - name: flea
+          image: 172.25.60.1/nest/flea:latest
+          ports:
+            - containerPort: 3001
