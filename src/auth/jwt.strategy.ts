@@ -19,7 +19,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   // 実認証処理メソッド（validateで固定名）
   async validate(payload: { id: string; username: string }): Promise<User> {
     const { id, username } = payload;
-    console.log('[jwtSteraegy id,username', id, username);
+    console.debug('[jwtSteraegy id,username', id, username);
     const user = await this.userRepository.findOneBy({ id, username });
 
     if (user) {
